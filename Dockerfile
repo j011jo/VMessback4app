@@ -1,35 +1,23 @@
-2025-10-28T03:04:42.861Z
-SYSTEM
-LAUNCHING CONTAINER...
+FROM alpine:latest
 
-2025-10-28T03:04:44.957Z
-SYSTEM
-CHECKING HEALTH...
+WORKDIR /app
 
-2025-10-28T03:04:44.958Z
-SYSTEM
-trying to hit the 443 port using http
+# 安装 v2ray 和 nginx
+RUN apk add --no-cache wget unzip nginx && \
+    wget https://github.com/v2fly/v2ray-core/releases/latest/download/v2ray-linux-64.zip -O v2ray.zip && \
+    unzip v2ray.zip -d /usr/local/bin/ && \
+    rm v2ray.zip
 
-2025-10-28T03:04:44.960Z
-SYSTEM
-it looks that no process is listening to the 443 port using http
+# 复制文件
+COPY config.json .
+COPY nginx.conf .
+COPY index.html .
 
-2025-10-28T03:04:44.963Z
-SYSTEM
-trying again in 1s
+# 暴露端口
+EXPOSE 443
 
-2025-10-28T03:04:45.962Z
-SYSTEM
-trying to hit the 443 port using http
+# TCP 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD nc -z 127.0.0.1 443 || exit 1
 
-2025-10-28T03:04:47.966Z
-SYSTEM
-http request to the 443 port timed out after 2s
-
-2025-10-28T03:04:47.969Z
-SYSTEM
-The container exited before becoming healthy. Please check the container logs.
-
-2025-10-28T03:04:47.970Z
-SYSTEM
-deployment failed
+# 启动 Nginx + v2ray
+CMD nginx -c /app/nginx.conf & v2ray run -config /app/config.json
