@@ -12,9 +12,14 @@ RUN apk add --no-cache wget unzip nginx && \
 COPY config.json .
 COPY nginx.conf .
 COPY index.html .
+COPY start.sh .
+RUN chmod +x start.sh
 
 # 暴露端口
 EXPOSE 443
 
-# 启动 Nginx + v2ray
-CMD nginx && v2ray run -config config.json
+# TCP 健康检查 (测试 443 端口开)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD nc -z 127.0.0.1 443 || exit 1
+
+# 启动脚本
+CMD ["./start.sh"]
