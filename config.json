@@ -1,0 +1,35 @@
+{
+  "inbounds": [
+    {
+      "port": 443,
+      "protocol": "vmess",
+      "settings": {
+        "clients": [
+          {
+            "id": "de04add9-5c68-8bab-950c-08cd5320df18",  // 您的 UUID
+            "level": 1
+          }
+        ]
+      },
+      "streamSettings": {
+        "network": "tcp",
+        "security": "tls",
+        "tlsSettings": {
+          "certificates": [
+            {
+              "certificateFile": "/etc/letsencrypt/live/jjbao-3jyifa2g.b4a.run/fullchain.pem",
+              "keyFile": "/etc/letsencrypt/live/jjbao-3jyifa2g.b4a.run/privkey.pem"
+            }
+          ],
+          "alpn": ["http/1.1"]
+        }
+      }
+    }
+  ],
+  "outbounds": [
+    {
+      "protocol": "freedom",
+      "settings": {}
+    }
+  ]
+}
