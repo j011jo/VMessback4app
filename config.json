@@ -1,7 +1,7 @@
 {
   "inbounds": [
     {
-      "port": 10000,
+      "port": 443,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -13,14 +13,13 @@
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "none"  # 内部无 TLS, Back4app 代理
+        "security": "tls"
       }
     }
   ],
   "outbounds": [
     {
-      "protocol": "freedom",
-      "settings": {}
+      "protocol": "freedom"
     }
   ]
 }
