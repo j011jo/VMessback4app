@@ -1,7 +1,7 @@
 {
   "inbounds": [
     {
-      "port": 10000,  # 内部端口，Nginx 代理
+      "port": 10000,
       "protocol": "vmess",
       "settings": {
         "clients": [
@@ -13,7 +13,7 @@
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "none"  # Nginx 处理 TLS
+        "security": "none"
       }
     }
   ],
