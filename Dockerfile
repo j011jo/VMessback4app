@@ -16,8 +16,8 @@ COPY index.html .
 # 暴露端口
 EXPOSE 443
 
-# TCP 健康检查
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD nc -z 127.0.0.1 443 || exit 1
+# HTTP 健康检查 (Nginx 返回 OK)
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:443/ || exit 1
 
-# 启动 Nginx + v2ray
+# 启动
 CMD nginx -c /app/nginx.conf & v2ray run -config /app/config.json
