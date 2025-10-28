@@ -1,28 +1,19 @@
 {
   "inbounds": [
     {
-      "port": 443,
+      "port": 10000,  # 内部端口，Nginx 代理
       "protocol": "vmess",
       "settings": {
         "clients": [
           {
-            "id": "d425eef2-adec-47b3-8d04-ddde74fbd962",  // 您的 UUID
+            "id": "de04add9-5c68-8bab-950c-08cd5320df18",
             "level": 1
           }
         ]
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "tls",
-        "tlsSettings": {
-          "certificates": [
-            {
-              "certificateFile": "/etc/letsencrypt/live/jjbao-3jyifa2g.b4a.run/fullchain.pem",
-              "keyFile": "/etc/letsencrypt/live/jjbao-3jyifa2g.b4a.run/privkey.pem"
-            }
-          ],
-          "alpn": ["http/1.1"]
-        }
+        "security": "none"  # Nginx 处理 TLS
       }
     }
   ],
