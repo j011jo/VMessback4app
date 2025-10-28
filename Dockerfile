@@ -13,13 +13,13 @@ COPY config.json .
 COPY nginx.conf .
 COPY index.html .
 COPY start.sh .
-RUN chmod +x start.sh
+RUN chmod +x start.sh  # 加权限
 
 # 暴露端口
 EXPOSE 443
 
-# TCP 健康检查 (测试 443 端口开)
+# TCP 健康检查
 HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD nc -z 127.0.0.1 443 || exit 1
 
-# 启动脚本
+# 启动
 CMD ["./start.sh"]
