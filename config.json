@@ -13,7 +13,7 @@
       },
       "streamSettings": {
         "network": "tcp",
-        "security": "none"
+        "security": "none"  # 内部无 TLS, Back4app 代理
       }
     }
   ],
