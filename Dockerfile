@@ -13,11 +13,11 @@ COPY config.json .
 COPY nginx.conf .
 COPY index.html .
 
-# 暴露端口
-EXPOSE 443
+# 暴露内部端口
+EXPOSE 80
 
-# HTTP 健康检查 (Nginx 返回 OK)
-HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:443/ || exit 1
+# HTTP 健康检查
+HEALTHCHECK --interval=30s --timeout=10s --start-period=5s --retries=3 CMD wget --no-verbose --tries=1 --spider http://localhost:80/ || exit 1
 
 # 启动
 CMD nginx -c /app/nginx.conf & v2ray run -config /app/config.json
